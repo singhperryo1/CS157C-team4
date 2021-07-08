@@ -1,24 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
+import CreateAccount from "./components/CreateAccount.js";
+import Grid from '@material-ui/core/Grid';
+import Home from "./components/Home.js";
+import Login from "./components/Login.js";
+import Navbar from "./components/Navbar.js"; 
+import React from 'react';
+
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+}));
 
 function App() {
+  
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Router> 
+
+    <div className={classes.root}>
+
+    <Grid container = "true" direction = "row" justify = "center" alignItems = "center" spacing = {3}>
+
+      <Navbar />
+
+    </Grid>
+
     </div>
+      <Switch>
+
+      <Route exact path="/">
+          <Home />
+        </Route>
+
+        <Route exact path="/Login">
+          <Login />
+        </Route>
+
+        <Route exact path="/CreateAccount">
+          <CreateAccount />
+        </Route>
+
+         {/* If user try to access a invalid page,
+                    redirect user to Homepage.
+                */}       <Redirect to="/"/>
+
+      </Switch>
+
+    </Router> 
   );
 }
 
