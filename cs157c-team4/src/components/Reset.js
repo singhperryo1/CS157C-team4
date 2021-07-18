@@ -31,68 +31,67 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
 
-  const classes = useStyles();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState(""); 
+export default function Reset() {
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    const classes = useStyles();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   }; 
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-  };
+  }
 
   const handleForm =  (e) => {
     e.preventDefault();
-
-    if (!username || !password) {
-      alert("One or more field is empty"); 
-    } else {
-    console.log("This is username: " + username + " this is pass: " + password);
-
-    setUsername(""); 
-    setPassword(""); 
-  }
+    // make backend call and check if it exists and set email to ok
+    console.log("Event for the Submit eamil");
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+       <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
          {<PersonIcon fontSize="small" />}
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Reset Password
         </Typography>
         <form className={classes.form} noValidate>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="userName"
-                label="Username"
-                name="username"
-                value = {username}
-                onChange = {handleUsernameChange}
-            />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
+            name="email"
+            label="Email"
+            type="email"
+            id="email"
+            value = {email}
+            onChange = {handleEmailChange}
+          />
+          {
+            email !== "" &&
+            <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             name="password"
-            label="Password"
+            label="Reset Password"
             type="password"
             id="password"
             value = {password}
             onChange = {handlePasswordChange}
           />
+          }
           <Button
             type="submit"
             fullWidth
@@ -101,20 +100,8 @@ export default function Login() {
             className={classes.submit}
             onClick = {handleForm}
           >
-            Log In
+            Submit Email
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="./Reset" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="./CreateAccount" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
 
         <br/>

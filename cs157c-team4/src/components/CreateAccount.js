@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -39,7 +38,8 @@ export default function CreateAccount() {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState(""); 
-  const [password, setPassword] = useState("");  
+  const [password, setPassword] = useState("");
+  const [org, setOrg] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -53,20 +53,26 @@ export default function CreateAccount() {
     setPassword(event.target.value);
   };
 
+  const handleOrgChange = (event) => {
+    setOrg(event.target.value);
+  }
+
   const handleForm =  (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !org) {
       alert("One or more field is empty"); 
     } else {
 
+    setOrg("");
     setUsername(""); 
     setEmail(""); 
     setPassword("");
   }
 
-  }
+  // send the password by making post request
 
+  }
 
   const classes = useStyles();
 
@@ -105,6 +111,19 @@ export default function CreateAccount() {
                 name="email"
                 value = {email}
                 onChange = {handleEmailChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="org"
+                label="Organization"
+                name="org"
+                value = {org}
+                onChange = {handleOrgChange}
+                
               />
             </Grid>
             <Grid item xs={12}>
