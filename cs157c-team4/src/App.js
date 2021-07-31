@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import CreateAccount from "./components/CreateAccount.js";
+import Dashboard from "./components/Dashboard.js";
 import Grid from '@material-ui/core/Grid';
 import Home from "./components/Home.js";
 import Login from "./components/Login.js";
@@ -41,6 +42,10 @@ function App() {
       <Route exact path="/">
           <Home />
         </Route>
+
+      <Route exact path="/dashboard">
+      <Dashboard />
+      </Route>
 
         <Route exact path="/Login">
           <Login />
