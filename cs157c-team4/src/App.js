@@ -6,6 +6,7 @@ import Login from "./components/Login.js";
 import Navbar from "./components/Navbar.js"; 
 import Reset from "./components/Reset.js";
 import React from 'react';
+import background from "./pictures/background.webp"
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,6 +23,8 @@ function App() {
   const classes = useStyles();
 
   return (
+    <div style = {{backgroundImage: `url(${background})`
+    }}>
     <Router> 
 
     <div className={classes.root}>
@@ -58,6 +61,7 @@ function App() {
       </Switch>
 
     </Router> 
+    </div>
   );
 }
 

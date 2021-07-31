@@ -64,6 +64,8 @@ export default function CreateAccount() {
       alert("One or more field is empty"); 
     } else {
 
+    console.log("This is username: " + username + "this is pass: " + password + " org: " + org + " email: " + email);
+
     setOrg("");
     setUsername(""); 
     setEmail(""); 
@@ -158,7 +160,31 @@ export default function CreateAccount() {
             </Grid>
           </Grid>
         </form>
-
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+            <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <br/>
         <br/>
 
