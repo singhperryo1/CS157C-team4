@@ -1,23 +1,17 @@
 package com.example.server.model;
 
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-
 import java.io.Serializable;
 
-
-@RedisHash("CUSTOMER")
 public class Customer implements Serializable {
-    public String username;
 
-    @Id
+    private static final long serialVersionUID = 1L;
+
+    public String username;
     public String email;
     public String password;
     public String organization;
 
     public Customer() {
-
     }
 
     public Customer(String u, String e, String p, String o) {
@@ -27,4 +21,8 @@ public class Customer implements Serializable {
         this.organization = o;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Customer[username='%s', org='%s', email='%s', password='%s']", username, organization , email, password);
+    }
 }
