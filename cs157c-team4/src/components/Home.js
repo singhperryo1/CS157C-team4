@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import logo from "../pictures/logo.png";
 import { makeStyles } from '@material-ui/core/styles';
+import myu from "../services/myu.service.js";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,8 +36,9 @@ const classes = useStyles();
 
 
   const [userLink, setUserLink] = useState("");
-  const [decodedUrls, setDecodedUrsl] = useState("0");
-  const [hitRates, setHitRates] = useState("0");
+  const [url, setUrl] = useState("");
+  const [decodedUrls, setDecodedUrsl] = useState(0);
+  const [hitRates, setHitRates] = useState(0);
 
   const handleUserLinkChange = (event) => {
     setUserLink(event.target.value);
@@ -46,13 +48,64 @@ const classes = useStyles();
     e.preventDefault();
 
     if (!userLink) {
-      alert("Please Input Your Link"); 
+      alert("Please Enter a Valid Link"); 
     } else {
-    console.log("This is userLink: " + userLink);
 
-    setUserLink("");
+    // Get the ana
+
+        myu.getHAInfo(userLink)
+    .then(response => {
+      setHitRates(response["data"]["rates"]);
+      console.log(response);
+      setUrl(response["data"]["url"]);
+      }); 
+
+    save();
   }
+
+  // send the password by making post request
+
   }
+
+  const increment = () => {
+    setHitRates(hitRates + 1); 
+    setDecodedUrsl(decodedUrls + 1); 
+  }
+
+  const saveUrl = () => {
+
+    var urlo = {
+      "url": url,
+      "encoded": userLink,
+      "rates": hitRates + 1,
+
+    }
+
+    myu.createUrl(urlo)
+    .then(r => {
+      console.log(r);
+    })
+  }
+
+  const save = () => {
+
+increment();
+
+    var ha = {
+      "rates": hitRates,
+      "decodes": decodedUrls,
+    }
+
+    myu.createHA(ha)
+    .then(re => {
+      console.log("In increment");
+    })
+
+    saveUrl();
+
+  }
+
+
 
   return (
     <Container component="main" maxWidth="xs">

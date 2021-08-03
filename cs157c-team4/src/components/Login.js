@@ -8,6 +8,8 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
+import myu from "../services/myu.service.js";
+import { useHistory } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -31,15 +33,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Login(props) {
 
   const classes = useStyles();
+    let history = useHistory();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   }; 
 
   const handlePasswordChange = (event) => {
@@ -49,13 +52,25 @@ export default function Login() {
   const handleForm =  (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
+    if (!email || !password) {
       alert("One or more field is empty"); 
     } else {
-    console.log("This is username: " + username + " this is pass: " + password);
+    console.log("This is email: " + email + " this is pass: " + password);
 
-    setUsername(""); 
+    myu.getUserInfo(email)
+    .then(response => {
+        if (response.data.password === password) {
+
+        history.push({
+          pathname: '/dashboard',
+          state: response.data,
+        });
+
+    setEmail(""); 
     setPassword(""); 
+
+          }
+      }); 
   }
   }
 
@@ -75,11 +90,11 @@ export default function Login() {
                 margin="normal"
                 required
                 fullWidth
-                id="userName"
-                label="Username"
-                name="username"
-                value = {username}
-                onChange = {handleUsernameChange}
+                id="email"
+                label="Email"
+                name="email"
+                value = {email}
+                onChange = {handleEmailChange}
             />
           <TextField
             variant="outlined"

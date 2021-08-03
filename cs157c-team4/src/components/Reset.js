@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
+import myu from "../services/myu.service.js";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,8 +51,13 @@ export default function Reset() {
 
   const handleForm =  (e) => {
     e.preventDefault();
-    // make backend call and check if it exists and set email to ok
-    console.log("Event for the Submit eamil");
+
+    if (email && password) {
+    myu.updateUser(email, password)
+    .then(r => {
+      console.log(r);
+    });
+    }
   }
 
   return (
@@ -92,6 +98,7 @@ export default function Reset() {
             onChange = {handlePasswordChange}
           />
           }
+        
           <Button
             type="submit"
             fullWidth
@@ -100,7 +107,7 @@ export default function Reset() {
             className={classes.submit}
             onClick = {handleForm}
           >
-            Submit Email
+            Reset Password
           </Button>
         </form>
 

@@ -8,6 +8,7 @@ import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+import myu from "../services/myu.service.js";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -65,6 +66,19 @@ export default function CreateAccount() {
     } else {
 
     console.log("This is username: " + username + "this is pass: " + password + " org: " + org + " email: " + email);
+
+    var user = {
+      username: username,
+      email: email,
+      password: password,
+      Organization: org,
+    };
+
+        myu.createUser(user)
+      .catch(e => {
+        console.log(e);
+      });
+
 
     setOrg("");
     setUsername(""); 
